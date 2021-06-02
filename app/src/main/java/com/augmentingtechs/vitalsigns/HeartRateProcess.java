@@ -280,8 +280,8 @@ public class HeartRateProcess extends Activity {
     }
 
     public void startTimer() {
-        HRProgress = findViewById(R.id.BPPProgress);
-        HRText = findViewById(R.id.BPPText);
+        HRProgress = findViewById(R.id.HRPProgress);
+        HRText = findViewById(R.id.HRPText);
         timer = 0;
         HRProgress.setProgress(timer);
         new CountDownTimer(30000, 1000){

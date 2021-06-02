@@ -300,8 +300,8 @@ public class O2Process extends Activity {
     }
 
     public void startTimer() {
-        O2Progress = findViewById(R.id.BPPProgress);
-        O2Text = findViewById(R.id.BPPText);
+        O2Progress = findViewById(R.id.O2Progress);
+        O2Text = findViewById(R.id.O2Text);
         timer = 0;
         O2Progress.setProgress(timer);
         new CountDownTimer(30000, 1000){

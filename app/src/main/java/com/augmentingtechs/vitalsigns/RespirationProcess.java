@@ -283,8 +283,8 @@ public class RespirationProcess extends Activity {
     }
 
     public void startTimer() {
-        RSProgress = findViewById(R.id.BPPProgress);
-        RSText = findViewById(R.id.BPPText);
+        RSProgress = findViewById(R.id.RSPProgress);
+        RSText = findViewById(R.id.RSPText);
         timer = 0;
         RSProgress.setProgress(timer);
         new CountDownTimer(30000, 1000){

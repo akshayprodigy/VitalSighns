@@ -1,10 +1,12 @@
 package com.augmentingtechs.vitalsigns;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +25,13 @@ import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.util.List;
 
 public class Primary extends AppCompatActivity implements OnUserEarnedRewardListener {
 
@@ -48,6 +57,7 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
         setContentView(R.layout.activity_primary);
 
         prefs = getSharedPreferences("vital-prefs", Context.MODE_PRIVATE);
+        askPermission();
 
         MobileAds.initialize(this, initializationStatus -> {
             initAds();
@@ -171,6 +181,30 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
                 finish();
             }
         });
+    }
+
+    private void askPermission() {
+        Dexter.withContext(this)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()) {
+                            // Doing Nothing
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                        Toast.makeText(Primary.this, "Permission Needed", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .onSameThread()
+                .check();
     }
 
     private void setRewardPrefs(int counter) {

@@ -18,6 +18,6 @@ class Splash : AppCompatActivity() {
             startActivity(i)
 
             finish()
-        }, 3000)
+        }, 1500)
     }
 }

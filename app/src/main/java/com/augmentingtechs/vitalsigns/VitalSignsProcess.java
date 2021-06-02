@@ -380,8 +380,8 @@ public class VitalSignsProcess extends AppCompatActivity {
     }
 
     public void startTimer() {
-        VSProgress = findViewById(R.id.BPPProgress);
-        VSText = findViewById(R.id.BPPText);
+        VSProgress = findViewById(R.id.VSPProgress);
+        VSText = findViewById(R.id.VSPText);
         timer = 0;
         VSProgress.setProgress(timer);
         new CountDownTimer(30000, 1000){
