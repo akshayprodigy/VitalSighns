@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/activity_login"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@mipmap/bg4"
         android:orientation="vertical"
         android:paddingLeft="16dp"
@@ -18,7 +18,7 @@
         android:paddingRight="16dp"
         android:paddingBottom="16dp"
         android:weightSum="1"
-        tools:context="com.example.yo7a.healthwatcher.Login">
+        tools:context="com.augmentingtechs.vitalsigns.Login">
 
 
         <TextView
@@ -28,7 +28,8 @@
             android:text="Username"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -41,8 +42,10 @@
             android:background="@drawable/textinputborder"
             android:ems="10"
             android:inputType="textPersonName"
-            android:paddingLeft="15dp"
-            android:textColor="@android:color/black" />
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:textColor="@android:color/black"
+            tools:ignore="Autofill,LabelFor" />
 
         <Space
             android:layout_width="match_parent"
@@ -55,7 +58,8 @@
             android:text="Name"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -68,8 +72,10 @@
             android:background="@drawable/textinputborder"
             android:ems="10"
             android:inputType="textPersonName"
-            android:paddingLeft="15dp"
-            android:textColor="@android:color/black" />
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:textColor="@android:color/black"
+            tools:ignore="Autofill,LabelFor" />
 
         <Space
             android:layout_width="match_parent"
@@ -82,7 +88,8 @@
             android:text="Password"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -95,8 +102,10 @@
             android:background="@drawable/textinputborder"
             android:ems="10"
             android:inputType="textPassword"
-            android:paddingLeft="15dp"
-            android:textColor="@android:color/black" />
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:textColor="@android:color/black"
+            tools:ignore="Autofill,LabelFor" />
 
         <Space
             android:layout_width="match_parent"
@@ -109,7 +118,8 @@
             android:text="Confirm Password"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -122,8 +132,10 @@
             android:background="@drawable/textinputborder"
             android:ems="10"
             android:inputType="textPassword"
-            android:paddingLeft="15dp"
-            android:textColor="@android:color/black" />
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:textColor="@android:color/black"
+            tools:ignore="Autofill,LabelFor" />
 
         <Space
             android:layout_width="match_parent"
@@ -137,7 +149,8 @@
             android:text="Email"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -150,8 +163,10 @@
             android:background="@drawable/textinputborder"
             android:ems="10"
             android:inputType="text"
-            android:paddingLeft="15dp"
-            android:textColor="@android:color/black" />
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:textColor="@android:color/black"
+            tools:ignore="Autofill,LabelFor" />
 
         <Space
             android:layout_width="match_parent"
@@ -165,7 +180,8 @@
             android:text="Age"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -178,8 +194,10 @@
             android:background="@drawable/textinputborder"
             android:ems="10"
             android:inputType="number"
-            android:paddingLeft="15dp"
-            android:textColor="@android:color/black" />
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:textColor="@android:color/black"
+            tools:ignore="Autofill,LabelFor" />
 
         <Space
             android:layout_width="match_parent"
@@ -193,7 +211,8 @@
             android:text="Height"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -206,8 +225,10 @@
             android:background="@drawable/textinputborder"
             android:ems="10"
             android:inputType="number"
-            android:paddingLeft="15dp"
-            android:textColor="@android:color/black" />
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:textColor="@android:color/black"
+            tools:ignore="Autofill,LabelFor" />
 
         <Space
             android:layout_width="match_parent"
@@ -220,7 +241,8 @@
             android:text="Weight"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -233,8 +255,10 @@
             android:background="@drawable/textinputborder"
             android:ems="10"
             android:inputType="number"
-            android:paddingLeft="15dp"
-            android:textColor="@android:color/black" />
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:textColor="@android:color/black"
+            tools:ignore="Autofill,LabelFor" />
 
         <Space
             android:layout_width="match_parent"
@@ -248,7 +272,8 @@
             android:text="Gender"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
@@ -272,7 +297,8 @@
             android:layout_height="100dp"
             android:layout_marginBottom="40dp"
             android:backgroundTint="@android:color/transparent"
-            app:srcCompat="@mipmap/enter" />
+            app:srcCompat="@mipmap/enter"
+            tools:ignore="ContentDescription,UnusedAttribute" />
 
 
     </LinearLayout>

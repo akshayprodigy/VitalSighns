@@ -13,7 +13,7 @@
     android:paddingRight="64dp"
     android:paddingBottom="16dp"
     android:weightSum="1"
-    tools:context="com.example.yo7a.healthwatcher.AboutApp">
+    tools:context="com.augmentingtechs.vitalsigns.AboutApp">
 
 
     <ImageView
@@ -21,13 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:scaleType="fitCenter"
-        app:srcCompat="@mipmap/hrl" />
+        app:srcCompat="@mipmap/hrl"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/HRR"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/transparent"
@@ -41,7 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginBottom="140dp"
-        app:srcCompat="@mipmap/hrbar" />
+        app:srcCompat="@mipmap/hrbar"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/SendHR"
@@ -50,7 +51,8 @@
         android:layout_marginBottom="40dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        app:srcCompat="@mipmap/send" />
+        app:srcCompat="@mipmap/send"
+        tools:ignore="ContentDescription" />
 
 
 </LinearLayout>

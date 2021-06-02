@@ -13,20 +13,20 @@
     android:paddingRight="64dp"
     android:paddingBottom="16dp"
     android:weightSum="1"
-    tools:context="com.example.yo7a.healthwatcher.AboutApp">
+    tools:context="com.augmentingtechs.vitalsigns.AboutApp">
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:scaleType="fitCenter"
-        app:srcCompat="@mipmap/o2l" />
+        app:srcCompat="@mipmap/o2l"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/O2R"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/transparent"
@@ -40,7 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginBottom="140dp"
-        app:srcCompat="@mipmap/ro2" />
+        app:srcCompat="@mipmap/ro2"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/SendO2"
@@ -49,7 +50,8 @@
         android:layout_marginBottom="40dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        app:srcCompat="@mipmap/send" />
+        app:srcCompat="@mipmap/send"
+        tools:ignore="ContentDescription" />
 
 </LinearLayout>
 

@@ -11,13 +11,14 @@
     android:paddingTop="16dp"
     android:paddingRight="64dp"
     android:paddingBottom="16dp"
-    tools:context="com.example.yo7a.healthwatcher.StartVitalSigns">
+    tools:context="com.augmentingtechs.vitalsigns.StartVitalSigns">
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="156dp"
-        app:srcCompat="@mipmap/rsz_download" />
+        app:srcCompat="@mipmap/rsz_download"
+        tools:ignore="ContentDescription" />
 
     <Space
         android:layout_width="match_parent"
@@ -33,7 +34,8 @@
         android:text="- Lightly place your index finger on \n   the rear camera.\n- Make sure the camera is fully \n   covered. \n- Measure in a shaded environment. \n- Don't move your finger until the \n   measurement is complete. \n- Finally place your finger then press \n   start. "
         android:textColor="@color/colorPrimaryDark"
         android:textSize="12sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <Space
         android:layout_width="match_parent"
@@ -44,9 +46,8 @@
         android:id="@+id/StartVS"
         android:layout_width="wrap_content"
         android:layout_height="90dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@mipmap/start" />
+        app:srcCompat="@mipmap/start"
+        tools:ignore="ContentDescription" />
 </LinearLayout>

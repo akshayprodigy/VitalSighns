@@ -13,14 +13,15 @@
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
     android:weightSum="1"
-    tools:context="com.example.yo7a.healthwatcher.Primary">
+    tools:context="com.augmentingtechs.vitalsigns.Primary">
 
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        app:srcCompat="@mipmap/logo" />
+        app:srcCompat="@mipmap/logo"
+        tools:ignore="ContentDescription" />
 
     <Space
         android:layout_width="match_parent"
@@ -31,44 +32,50 @@
         android:layout_width="wrap_content"
         android:layout_height="75dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@mipmap/hr1" />
+        app:srcCompat="@mipmap/hr1"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/RR"
         android:layout_width="wrap_content"
         android:layout_height="75dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@mipmap/rr1" />
+        app:srcCompat="@mipmap/rr1"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/BP"
         android:layout_width="wrap_content"
         android:layout_height="75dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@mipmap/bp1" />
+        app:srcCompat="@mipmap/bp1"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/O2"
         android:layout_width="wrap_content"
         android:layout_height="75dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@mipmap/or1" />
+        app:srcCompat="@mipmap/or1"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/VS"
         android:layout_width="wrap_content"
         android:layout_height="75dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@mipmap/avs" />
+        app:srcCompat="@mipmap/avs"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/About"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:background="@android:color/transparent"
         android:scaleType="fitEnd"
-        app:srcCompat="@mipmap/ab" />
+        app:srcCompat="@mipmap/ab"
+        tools:ignore="ContentDescription" />
 
 
 </LinearLayout>

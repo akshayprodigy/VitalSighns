@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.yo7a.healthwatcher">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.augmentingtechs.vitalsigns.healthwatcher">
 
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -16,73 +17,87 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity
+        <!--<activity
             android:name=".First"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>-->
+        <activity
+            android:name="com.augmentingtechs.vitalsigns.Splash"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Primary"
+            android:name="com.augmentingtechs.vitalsigns.Primary"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AboutApp"
+            android:name="com.augmentingtechs.vitalsigns.AboutApp"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".O2Result"
+            android:name="com.augmentingtechs.vitalsigns.O2Result"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BloodPressureResult"
+            android:name="com.augmentingtechs.vitalsigns.BloodPressureResult"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HeartRateResult"
+            android:name="com.augmentingtechs.vitalsigns.HeartRateResult"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RespirationResult"
+            android:name="com.augmentingtechs.vitalsigns.RespirationResult"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HeartRateProcess"
+            android:name="com.augmentingtechs.vitalsigns.HeartRateProcess"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BloodPressureProcess"
+            android:name="com.augmentingtechs.vitalsigns.BloodPressureProcess"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".O2Process"
+            android:name="com.augmentingtechs.vitalsigns.O2Process"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Login"
+            android:name="com.augmentingtechs.vitalsigns.Login"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RespirationProcess"
+            android:name="com.augmentingtechs.vitalsigns.RespirationProcess"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StartVitalSigns"
+            android:name="com.augmentingtechs.vitalsigns.StartVitalSigns"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VitalSignsProcess"
+            android:name="com.augmentingtechs.vitalsigns.VitalSignsProcess"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VitalSignsResults"
+            android:name="com.augmentingtechs.vitalsigns.VitalSignsResults"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8024886885221085~1853995112"/>
     </application>
 
 </manifest>

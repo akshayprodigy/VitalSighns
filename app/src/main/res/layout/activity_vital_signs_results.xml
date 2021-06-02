@@ -12,34 +12,37 @@
     android:paddingRight="64dp"
     android:paddingBottom="16dp"
     android:weightSum="1"
-    tools:context="com.example.yo7a.healthwatcher.VitalSignsResults">
+    tools:context="com.augmentingtechs.vitalsigns.VitalSignsResults">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="600dp"
         android:layout_weight="0.72"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="InefficientWeight"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="NestedWeights">
 
             <ImageView
                 android:id="@+id/imageView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/hrl" />
+                app:srcCompat="@mipmap/hrl"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/HRV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 android:background="@android:color/transparent"
@@ -52,7 +55,8 @@
                 android:id="@+id/imageView13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/hrbar" />
+                app:srcCompat="@mipmap/hrbar"
+                tools:ignore="ContentDescription" />
 
             <Space
                 android:layout_width="match_parent"
@@ -63,7 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/bpl" />
+                app:srcCompat="@mipmap/bpl"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/BP2V"
@@ -76,13 +81,15 @@
                 android:text=""
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="ObsoleteLayoutParam" />
 
             <ImageView
                 android:id="@+id/imageView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/bpr" />
+                app:srcCompat="@mipmap/bpr"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
@@ -98,13 +105,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/o2l" />
+                app:srcCompat="@mipmap/o2l"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/O2V"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 android:background="@android:color/transparent"
@@ -117,7 +124,8 @@
                 android:id="@+id/imageView16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/ro2" />
+                app:srcCompat="@mipmap/ro2"
+                tools:ignore="ContentDescription" />
 
             <Space
                 android:layout_width="match_parent"
@@ -128,13 +136,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/rrl" />
+                app:srcCompat="@mipmap/rrl"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/RRV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 android:background="@android:color/transparent"
@@ -147,7 +155,8 @@
                 android:id="@+id/imageView15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/rrr" />
+                app:srcCompat="@mipmap/rrr"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
     </LinearLayout>
@@ -163,6 +172,7 @@
         android:layout_marginBottom="40dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        app:srcCompat="@mipmap/send" />
+        app:srcCompat="@mipmap/send"
+        tools:ignore="ContentDescription" />
 
 </LinearLayout>

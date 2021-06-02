@@ -3,4 +3,57 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#25338e</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="status_blue">#01179F</color>
+    <color name="status_green">#019F0C</color>
+    <color name="status_red">#9F0101</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="black_2">#121212</color>
+    <color name="grey">#ECECEE</color>
+    <color name="orange">#F14336</color>
+    <color name="orange_light">#FA9991</color>
+    <color name="grey_dark">#B2B2B2</color>
+    <color name="blue">#467DE2</color>
+    <color name="blue_dark">#3C6FCD</color>
+    <color name="blue_light">#93B9F7</color>
+
+    <color name="text_grey">#5E5E5F</color>
+
+    <color name="link_back">#1D1E55</color>
+    <color name="link_fore">#CDCEFB</color>
+
+    <color name="unread_sum">#FFFFCC</color>
+    <color name="unread_dark">#333333</color>
+
+    <color name="loader_blue">#1A1AFF</color>
+    <color name="loader_orange">#FF4500</color>
+    <color name="loader_yellow">#E6E600</color>
+    <color name="loader_green">#00B300</color>
+    <color name="loader_red">#B30000</color>
+
+    <color name="menu_grad_1">#7EA5EA</color>
+    <color name="menu_grad_2">#4D68DF</color>
+    <color name="menu_grad_3">#504ED6</color>
+    <color name="menu_grad_4">#573FD8</color>
+
+    <color name="vertigo">#6200EE</color>
+    <color name="olive">#0AFFB2</color>
+    <color name="magenta">#DF0000</color>
+
+    <color name="nav_tap_color">#8CB1F5</color>
+
+    <color name="orange_button">#F86B00</color>
+
+    <color name="fav_button_tap_color">#FFC600</color>
+
+    <color name="google_play_green">#00875F</color>
+
+    <color name="prompt_bottom_grey">#E3E4E8</color>
+
+    <color name="checkerboard_light">#FFFFFF</color>
+    <color name="checkerboard_dark">#CCCCCC</color>
+
+    <color name="semitransparentBlack">#80000000</color>
 </resources>
