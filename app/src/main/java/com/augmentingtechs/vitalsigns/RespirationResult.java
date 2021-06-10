@@ -1,7 +1,9 @@
 package com.augmentingtechs.vitalsigns;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +23,7 @@ public class RespirationResult extends AppCompatActivity {
     int RR;
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     Date today = Calendar.getInstance().getTime();
-
+    private static PowerManager.WakeLock wakeLock = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,16 +52,28 @@ public class RespirationResult extends AppCompatActivity {
                 Toast.makeText(RespirationResult.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
             }
         });
-
+// WakeLock Initialization : Forces the phone to stay On
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "Vital sign: DoNotDimScreen");
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        wakeLock.acquire();
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        wakeLock.release();
+    }
+    @Override
     public void onBackPressed() {
 
-        Intent i = new Intent(RespirationResult.this, Primary.class);
-        i.putExtra("Usr", user);
-        startActivity(i);
-        finish();
+//        Intent i = new Intent(RespirationResult.this, Primary.class);
+//        i.putExtra("Usr", user);
+//        startActivity(i);
+//        finish();
         super.onBackPressed();
 
     }

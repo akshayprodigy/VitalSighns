@@ -95,9 +95,15 @@ public class BloodPressureProcess extends Activity {
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         ProgBP = findViewById(R.id.BPPB);
         ProgBP.setProgress(0);
-
-        startTimer();
-
+        BPProgress = findViewById(R.id.BPPProgress);
+        BPText = findViewById(R.id.BPPText);
+        //startTimer();
+        BPProgress.setProgress(0);
+////        BPText.setText("MEASURING " + "\n" + 0 + "%");
+//        if(ProgP > 0)
+//            BPText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+//        else
+        BPText.setText("Place finger on\n camera lens");
         // WakeLock Initialization : Forces the phone to stay On
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "HealthWatch: DoNotDimScreen");
@@ -184,6 +190,12 @@ public class BloodPressureProcess extends Activity {
                 ProgP = inc;
                 counter = 0;
                 ProgBP.setProgress(ProgP);
+                BPProgress.setProgress(ProgP);
+//                BPText.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100))  + "%");
+                if(ProgP > 0)
+                    BPText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                else
+                    BPText.setText("Place finger on\n camera lens");
                 processing.set(false);
             }
 
@@ -222,6 +234,12 @@ public class BloodPressureProcess extends Activity {
                     inc = 0;
                     ProgP = inc;
                     ProgBP.setProgress(ProgP);
+                    BPProgress.setProgress(ProgP);
+//                    BPText.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100))  + "%");
+                    if(ProgP > 0)
+                        BPText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                    else
+                        BPText.setText("Place finger on\n camera lens");
                     mainToast = Toast.makeText(getApplicationContext(), "Measurement Failed", Toast.LENGTH_SHORT);
                     mainToast.show();
                     startTime = System.currentTimeMillis();
@@ -257,6 +275,12 @@ public class BloodPressureProcess extends Activity {
             if (RedAvg != 0) {
                 ProgP = inc++ / 34;
                 ProgBP.setProgress(ProgP);
+                BPProgress.setProgress(ProgP);
+//                BPText.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100))  + "%");
+                if(ProgP > 0)
+                    BPText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                else
+                    BPText.setText("Place finger on\n camera lens");
             }
             processing.set(false);
 
@@ -339,10 +363,10 @@ public class BloodPressureProcess extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(BloodPressureProcess.this, StartVitalSigns.class);
-        i.putExtra("Usr", user);
-        startActivity(i);
-        finish();
+//        Intent i = new Intent(BloodPressureProcess.this, Primary.class);
+//        i.putExtra("Usr", user);
+//        startActivity(i);
+//        finish();
     }
 
 }

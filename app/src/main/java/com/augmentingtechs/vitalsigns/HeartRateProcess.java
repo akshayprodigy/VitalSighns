@@ -79,13 +79,20 @@ public class HeartRateProcess extends Activity {
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         ProgHeart = findViewById(R.id.HRPB);
+        HRProgress = findViewById(R.id.HRPProgress);
+        HRText = findViewById(R.id.HRPText);
         ProgHeart.setProgress(0);
 
-        startTimer();
-
+//        startTimer();
+        HRProgress.setProgress(0);
+        HRText.setText("MEASURING " + "\n" + 0 + "%");
+//        if(ProgP > 0)
+//            HRText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+//        else
+        HRText.setText("Place finger on\n camera lens");
         // WakeLock Initialization : Forces the phone to stay On
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "HealthWatch: DoNotDimScreen");
+        wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "Vital sign: DoNotDimScreen");
     }
 
     //Prevent the system from restarting your activity during certain configuration changes,
@@ -162,6 +169,12 @@ public class HeartRateProcess extends Activity {
                 ProgP = inc;
                 counter = 0;
                 ProgHeart.setProgress(ProgP);
+                HRProgress.setProgress(ProgP);
+//                HRText.setText("MEASURING " + "\n" +String.format("%.2f", ((ProgP/26.0)*100))  + "%");
+                if(ProgP > 0)
+                    HRText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                else
+                    HRText.setText("Place finger on\n camera lens");
                 processing.set(false);
             }
 
@@ -197,6 +210,12 @@ public class HeartRateProcess extends Activity {
                     inc = 0;
                     ProgP = inc;
                     ProgHeart.setProgress(ProgP);
+                    HRProgress.setProgress(ProgP);
+//                    HRText.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100))  + "%");
+                    if(ProgP > 0)
+                        HRText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                    else
+                        HRText.setText("Place finger on\n camera lens");
                     mainToast = Toast.makeText(getApplicationContext(), "Measurement Failed", Toast.LENGTH_SHORT);
                     mainToast.show();
                     startTime = System.currentTimeMillis();
@@ -221,6 +240,12 @@ public class HeartRateProcess extends Activity {
 
                 ProgP = inc++ / 34;
                 ProgHeart.setProgress(ProgP);
+                HRProgress.setProgress(ProgP);
+//                HRText.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                if(ProgP > 0)
+                    HRText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                else
+                    HRText.setText("Place finger on\n camera lens");
             }
 
             //keeps taking frames tell 30 seconds
@@ -299,9 +324,9 @@ public class HeartRateProcess extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(HeartRateProcess.this, StartVitalSigns.class);
-        i.putExtra("Usr", user);
-        startActivity(i);
-        finish();
+//        Intent i = new Intent(HeartRateProcess.this, Primary.class);
+//        i.putExtra("Usr", user);
+//        startActivity(i);
+//        finish();
     }
 }

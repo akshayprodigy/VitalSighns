@@ -5,7 +5,7 @@
     android:id="@+id/activity_vital_signs_results"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg4"
+    android:background="@drawable/bg_gradient"
     android:orientation="vertical"
     android:paddingLeft="64dp"
     android:paddingTop="16dp"
@@ -18,10 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="600dp"
         android:layout_weight="0.72"
+        android:baselineAligned="false"
         android:gravity="center"
         android:orientation="horizontal"
-        tools:ignore="InefficientWeight"
-        android:baselineAligned="false">
+        tools:ignore="InefficientWeight">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg4"
+    android:background="@drawable/bg_gradient"
     tools:context="com.augmentingtechs.vitalsigns.O2Process">
 
     <RelativeLayout

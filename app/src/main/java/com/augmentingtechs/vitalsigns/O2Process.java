@@ -86,9 +86,18 @@ public class O2Process extends Activity {
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         ProgO2 = findViewById(R.id.O2PB);
+        O2Progress = findViewById(R.id.O2Progress);
+        O2Text = findViewById(R.id.O2Text);
+
         ProgO2.setProgress(0);
 
-        startTimer();
+        O2Progress.setProgress(0);
+        O2Text.setText("MEASURING " + "\n" + 0 + "%");
+//        if(ProgP > 0)
+//            O2Text.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+//        else
+        O2Text.setText("Place finger on\n camera lens");
+        // startTimer();
 
         // WakeLock Initialization : Forces the phone to stay On
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -173,6 +182,12 @@ public class O2Process extends Activity {
                 inc = 0;
                 ProgP = inc;
                 ProgO2.setProgress(ProgP);
+                O2Progress.setProgress(ProgP);
+//                O2Text.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100))  + "%");
+                if(ProgP > 0)
+                    O2Text.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                else
+                    O2Text.setText("Place finger on\n camera lens");
                 processing.set(false);
             }
 
@@ -214,6 +229,12 @@ public class O2Process extends Activity {
                     inc = 0;
                     ProgP = inc;
                     ProgO2.setProgress(ProgP);
+                    O2Progress.setProgress(ProgP);
+//                    O2Text.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100))  + "%");
+                    if(ProgP > 0)
+                        O2Text.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                    else
+                        O2Text.setText("Place finger on\n camera lens");
                     mainToast = Toast.makeText(getApplicationContext(), "Measurement Failed", Toast.LENGTH_SHORT);
                     mainToast.show();
                     startTime = System.currentTimeMillis();
@@ -235,6 +256,12 @@ public class O2Process extends Activity {
             if (RedAvg != 0) {
                 ProgP = inc++ / 34;
                 ProgO2.setProgress(ProgP);
+                O2Progress.setProgress(ProgP);
+//                O2Text.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100))  + "%");
+                if(ProgP > 0)
+                    O2Text.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                else
+                    O2Text.setText("Place finger on\n camera lens");
             }
 
             processing.set(false);
@@ -319,9 +346,9 @@ public class O2Process extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(O2Process.this, StartVitalSigns.class);
-        i.putExtra("Usr", user);
-        startActivity(i);
-        finish();
+//        Intent i = new Intent(O2Process.this, Primary.class);
+//        i.putExtra("Usr", user);
+//        startActivity(i);
+//        finish();
     }
 }

@@ -82,7 +82,7 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
         Abt.setOnClickListener(v -> {
             Intent i = new Intent(v.getContext(), AboutApp.class);
             startActivity(i);
-            finish();
+            //finish();
         });
 
 
@@ -97,12 +97,27 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             } else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
                 singleLoader.loadAd(new AdRequest.Builder().build());
             } else {
-                p = 1;
-                Intent i = new Intent(v.getContext(), StartVitalSigns.class);
-                i.putExtra("Usr", user);
-                i.putExtra("Page", p);
-                startActivity(i);
-                finish();
+
+                boolean showTutorial = prefs.getBoolean("showTutorial", true);
+                if(showTutorial){
+                    setTutorialShown();
+                    p = 1;
+                    Intent i = new Intent(v.getContext(), StartVitalSigns.class);
+                    i.putExtra("Usr", user);
+                    i.putExtra("Page", p);
+                    startActivity(i);
+                }else {
+                    Intent i = new Intent(v.getContext(), HeartRateProcess.class);
+                    i.putExtra("Usr", user);
+                    startActivity(i);
+                }
+
+//                p = 1;
+//                Intent i = new Intent(v.getContext(), StartVitalSigns.class);
+//                i.putExtra("Usr", user);
+//                i.putExtra("Page", p);
+//                startActivity(i);
+                //finish();
             }
         });
 
@@ -116,12 +131,25 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             } else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
                 singleLoader.loadAd(new AdRequest.Builder().build());
             } else {
-                p = 2;
-                Intent i = new Intent(v.getContext(), StartVitalSigns.class);
-                i.putExtra("Usr", user);
-                i.putExtra("Page", p);
-                startActivity(i);
-                finish();
+                boolean showTutorial = prefs.getBoolean("showTutorial", true);
+                if(showTutorial){
+                    setTutorialShown();
+                    p = 2;
+                    Intent i = new Intent(v.getContext(), StartVitalSigns.class);
+                    i.putExtra("Usr", user);
+                    i.putExtra("Page", p);
+                    startActivity(i);
+                }else {
+                    Intent i = new Intent(v.getContext(), BloodPressureProcess.class);
+                    i.putExtra("Usr", user);
+                    startActivity(i);
+                }
+//                p = 2;
+//                Intent i = new Intent(v.getContext(), StartVitalSigns.class);
+//                i.putExtra("Usr", user);
+//                i.putExtra("Page", p);
+//                startActivity(i);
+                //finish();
             }
         });
 
@@ -135,12 +163,25 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             } else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
                 singleLoader.loadAd(new AdRequest.Builder().build());
             } else {
-                p = 3;
-                Intent i = new Intent(v.getContext(), StartVitalSigns.class);
-                i.putExtra("Usr", user);
-                i.putExtra("Page", p);
-                startActivity(i);
-                finish();
+                boolean showTutorial = prefs.getBoolean("showTutorial", true);
+                if(showTutorial){
+                    setTutorialShown();
+                    p = 3;
+                    Intent i = new Intent(v.getContext(), StartVitalSigns.class);
+                    i.putExtra("Usr", user);
+                    i.putExtra("Page", p);
+                    startActivity(i);
+                }else {
+                    Intent i = new Intent(v.getContext(), RespirationProcess.class);
+                    i.putExtra("Usr", user);
+                    startActivity(i);
+                }
+//                p = 3;
+//                Intent i = new Intent(v.getContext(), StartVitalSigns.class);
+//                i.putExtra("Usr", user);
+//                i.putExtra("Page", p);
+//                startActivity(i);
+                //finish();
             }
         });
 
@@ -154,12 +195,25 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             } else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
                 singleLoader.loadAd(new AdRequest.Builder().build());
             } else {
-                p = 4;
-                Intent i = new Intent(v.getContext(), StartVitalSigns.class);
-                i.putExtra("Usr", user);
-                i.putExtra("Page", p);
-                startActivity(i);
-                finish();
+                boolean showTutorial = prefs.getBoolean("showTutorial", true);
+                if(showTutorial){
+                    setTutorialShown();
+                    p = 4;
+                    Intent i = new Intent(v.getContext(), StartVitalSigns.class);
+                    i.putExtra("Usr", user);
+                    i.putExtra("Page", p);
+                    startActivity(i);
+                }else {
+                    Intent i = new Intent(v.getContext(), O2Process.class);
+                    i.putExtra("Usr", user);
+                    startActivity(i);
+                }
+//                p = 4;
+//                Intent i = new Intent(v.getContext(), StartVitalSigns.class);
+//                i.putExtra("Usr", user);
+//                i.putExtra("Page", p);
+//                startActivity(i);
+                //finish();
             }
         });
 
@@ -173,12 +227,27 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             } else if (allAdCounter % constants.getAllAdInterval() == 0) {
                 singleLoader.loadAd(new AdRequest.Builder().build());
             } else {
-                p = 5;
-                Intent i = new Intent(v.getContext(), StartVitalSigns.class);
-                i.putExtra("Usr", user);
-                i.putExtra("Page", p);
-                startActivity(i);
-                finish();
+
+                boolean showTutorial = prefs.getBoolean("showTutorial", true);
+                if(showTutorial){
+                    setTutorialShown();
+                    p = 5;
+                    Intent i = new Intent(v.getContext(), StartVitalSigns.class);
+                    i.putExtra("Usr", user);
+                    i.putExtra("Page", p);
+                    startActivity(i);
+                }else {
+                    Intent i = new Intent(v.getContext(), VitalSignsProcess.class);
+                    i.putExtra("Usr", user);
+                    startActivity(i);
+                }
+//                p = 5;
+//
+//                Intent i = new Intent(v.getContext(), StartVitalSigns.class);
+//                i.putExtra("Usr", user);
+//                i.putExtra("Page", p);
+//                startActivity(i);
+                //finish();
             }
         });
     }
@@ -213,6 +282,12 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
         editor.apply();
     }
 
+    void setTutorialShown(){
+        editor = prefs.edit();
+        editor.putBoolean("showTutorial",false);
+        editor.apply();
+    }
+
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
@@ -222,7 +297,7 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
                 .setPositiveButton(android.R.string.yes, (arg0, arg1) -> {
 
                     Primary.super.onBackPressed();
-                    finish();
+                    Primary.this.finish();
                     System.exit(0);
                 }).create().show();
     }

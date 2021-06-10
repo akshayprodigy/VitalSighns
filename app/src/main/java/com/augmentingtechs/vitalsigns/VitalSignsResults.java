@@ -1,7 +1,10 @@
 package com.augmentingtechs.vitalsigns;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,12 +24,12 @@ public class VitalSignsResults extends AppCompatActivity {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     Date today = Calendar.getInstance().getTime();
     int VBP1, VBP2, VRR, VHR, VO2;
-
+    private static PowerManager.WakeLock wakeLock = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vital_signs_results);
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Date = df.format(today);
         TextView VSRR = this.findViewById(R.id.RRV);
         TextView VSBPS = this.findViewById(R.id.BP2V);
@@ -60,15 +63,28 @@ public class VitalSignsResults extends AppCompatActivity {
                 Toast.makeText(VitalSignsResults.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
             }
         });
-
+// WakeLock Initialization : Forces the phone to stay On
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "Vital sign: DoNotDimScreen");
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        wakeLock.acquire();
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        wakeLock.release();
+    }
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(VitalSignsResults.this, Primary.class);
-        i.putExtra("Usr", user);
-        startActivity(i);
+//        Intent i = new Intent(VitalSignsResults.this, Primary.class);
+//        i.putExtra("Usr", user);
+//        //i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(i);
         finish();
     }
 }

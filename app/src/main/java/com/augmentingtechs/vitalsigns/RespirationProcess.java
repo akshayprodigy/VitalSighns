@@ -78,10 +78,17 @@ public class RespirationProcess extends Activity {
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         ProgRR = findViewById(R.id.HRPB);
+        RSProgress = findViewById(R.id.RSPProgress);
+        RSText = findViewById(R.id.RSPText);
         ProgRR.setProgress(0);
 
-        startTimer();
-
+        //startTimer();
+        RSProgress.setProgress(0);
+        //RSText.setText("MEASURING " + "\n" + 0 + "%");
+//        if(ProgP > 0)
+//            RSText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+//        else
+        RSText.setText("Place finger on\n camera lens");
         // WakeLock Initialization : Forces the phone to stay On
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "VitalSigns: DoNotDimScreen");
@@ -164,6 +171,12 @@ public class RespirationProcess extends Activity {
                 ProgP = inc;
                 counter = 0;
                 ProgRR.setProgress(ProgP);
+                RSProgress.setProgress(ProgP);
+//                RSText.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100))  + "%");
+                if(ProgP > 0)
+                    RSText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                else
+                    RSText.setText("Place finger on\n camera lens");
                 processing.set(false);
             }
 
@@ -201,6 +214,12 @@ public class RespirationProcess extends Activity {
                     inc = 0;
                     ProgP = inc;
                     ProgRR.setProgress(ProgP);
+                    RSProgress.setProgress(ProgP);
+//                    RSText.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                    if(ProgP > 0)
+                        RSText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                    else
+                        RSText.setText("Place finger on\n camera lens");
                     mainToast = Toast.makeText(getApplicationContext(), "Measurement Failed", Toast.LENGTH_SHORT);
                     mainToast.show();
                     startTime = System.currentTimeMillis();
@@ -222,6 +241,12 @@ public class RespirationProcess extends Activity {
             if (RedAvg != 0) {
                 ProgP = inc++ / 34;
                 ProgRR.setProgress(ProgP);
+                RSProgress.setProgress(ProgP);
+//                RSText.setText("MEASURING " + "\n" + String.format("%.2f", ((ProgP/26.0)*100))  + "%");
+                if(ProgP > 0)
+                    RSText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                else
+                    RSText.setText("Place finger on\n camera lens");
             }
             processing.set(false);
 
@@ -302,9 +327,9 @@ public class RespirationProcess extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(RespirationProcess.this, StartVitalSigns.class);
-        i.putExtra("Usr", user);
-        startActivity(i);
-        finish();
+//        Intent i = new Intent(RespirationProcess.this, Primary.class);
+//        i.putExtra("Usr", user);
+//        startActivity(i);
+//        finish();
     }
 }

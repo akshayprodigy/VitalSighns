@@ -7,6 +7,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.ProgressBar;
@@ -107,10 +108,14 @@ public class VitalSignsProcess extends AppCompatActivity {
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         ProgHeart = findViewById(R.id.VSPB);
+        VSProgress = findViewById(R.id.VSPProgress);
+        VSText = findViewById(R.id.VSPText);
         ProgHeart.setProgress(0);
 
-        startTimer();
+        //startTimer();
 
+        VSProgress.setProgress(0);
+        VSText.setText("Place finger on\n camera lens");//Lightly place your index finger on \n   the rear camera  "MEASURING " + "\n" + 0 + "%"
         // WakeLock Initialization : Forces the phone to stay On
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "HealthWatch: DoNotDimScreen");
@@ -161,6 +166,7 @@ public class VitalSignsProcess extends AppCompatActivity {
 
         /**
          * {@inheritDoc}
+         * need  to handel crash
          */
         @Override
         public void onPreviewFrame(byte[] data, Camera cam) {
@@ -203,6 +209,12 @@ public class VitalSignsProcess extends AppCompatActivity {
                 ProgP = inc;
                 counter = 0;
                 ProgHeart.setProgress(ProgP);
+                VSProgress.setProgress(ProgP);
+                //Log.e("Vital sigh","ProgP "+ProgP+ " ((ProgP/26)*100): "+((ProgP/26)*100));
+                if(ProgP > 0)
+                    VSText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                else
+                    VSText.setText("Place finger on\n camera lens");
                 processing.set(false);
             }
 
@@ -284,6 +296,13 @@ public class VitalSignsProcess extends AppCompatActivity {
                     inc = 0;
                     ProgP = inc;
                     ProgHeart.setProgress(ProgP);
+                    VSProgress.setProgress(ProgP);
+                    //Log.e("Vital sigh","ProgP "+ProgP+ " ((ProgP/26)*100): "+((ProgP/26)*100));
+                    //VSText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                    if(ProgP > 0)
+                        VSText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                    else
+                        VSText.setText("Place finger on\n camera lens");
                     mainToast = Toast.makeText(getApplicationContext(), "Measurement Failed", Toast.LENGTH_SHORT);
                     mainToast.show();
                     startTime = System.currentTimeMillis();
@@ -324,6 +343,13 @@ public class VitalSignsProcess extends AppCompatActivity {
             if (RedAvg != 0) {
                 ProgP = inc++ / 34;
                 ProgHeart.setProgress(ProgP);
+                VSProgress.setProgress(ProgP);
+                //Log.e("Vital sigh","ProgP "+ProgP+ " ((ProgP/26)*100): "+((ProgP/26)*100));
+                //VSText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                if(ProgP > 0)
+                    VSText.setText("MEASURING " + "\n" +  String.format("%.2f", ((ProgP/26.0)*100)) + "%");
+                else
+                    VSText.setText("Place finger on\n camera lens");
             }
             processing.set(false);
         }
@@ -399,9 +425,9 @@ public class VitalSignsProcess extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(VitalSignsProcess.this, StartVitalSigns.class);
-        i.putExtra("Usr", user);
-        startActivity(i);
-        finish();
+//        Intent i = new Intent(VitalSignsProcess.this, Primary.class);
+//        i.putExtra("Usr", user);
+//        startActivity(i);
+//        finish();
     }
 }

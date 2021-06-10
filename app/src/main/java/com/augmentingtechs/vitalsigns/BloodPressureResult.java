@@ -1,7 +1,9 @@
 package com.augmentingtechs.vitalsigns;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -22,7 +24,7 @@ public class BloodPressureResult extends AppCompatActivity {
     int SP, DP;
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     Date today = Calendar.getInstance().getTime();
-
+    private static PowerManager.WakeLock wakeLock = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,15 +57,27 @@ public class BloodPressureResult extends AppCompatActivity {
                 }
             }
         });
-
+// WakeLock Initialization : Forces the phone to stay On
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "Vital sign: DoNotDimScreen");
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        wakeLock.acquire();
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        wakeLock.release();
+    }
+    @Override
     public void onBackPressed() {
-        Intent i = new Intent(BloodPressureResult.this, Primary.class);
-        i.putExtra("Usr", user);
-        startActivity(i);
-        finish();
+//        Intent i = new Intent(BloodPressureResult.this, Primary.class);
+//        i.putExtra("Usr", user);
+//        startActivity(i);
+//        finish();
         super.onBackPressed();
     }
 }

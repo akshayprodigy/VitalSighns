@@ -15,9 +15,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/ic_vslogo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/logo"
+        android:roundIcon="@mipmap/ic_vslogo_round"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:largeHeap="true"
@@ -51,18 +51,22 @@
         <activity
             android:name="com.augmentingtechs.vitalsigns.O2Result"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.augmentingtechs.vitalsigns.BloodPressureResult"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.augmentingtechs.vitalsigns.HeartRateResult"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.augmentingtechs.vitalsigns.RespirationResult"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.augmentingtechs.vitalsigns.HeartRateProcess"
@@ -95,6 +99,7 @@
         <activity
             android:name="com.augmentingtechs.vitalsigns.VitalSignsResults"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
 
         <meta-data
