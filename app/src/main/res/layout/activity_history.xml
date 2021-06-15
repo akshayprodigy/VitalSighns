@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <ImageButton
+        android:id="@+id/history_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:src="@drawable/outline_arrow_back_black_36"
+        android:background="@null"
+        tools:ignore="ContentDescription" />
+    <GridView
+        android:id="@+id/history_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/history_back"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="5dp"
+        android:numColumns="1"
+        android:horizontalSpacing="0dp"
+        android:verticalSpacing="10dp" />
+
+</RelativeLayout>

@@ -75,6 +75,7 @@
         android:background="@android:color/transparent"
         android:scaleType="fitEnd"
         app:srcCompat="@mipmap/ab"
+        android:visibility="gone"
         tools:ignore="ContentDescription" />
 
 
