@@ -19,14 +19,19 @@ import com.augmentingtechs.vitalsigns.healthwatcher.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class History extends AppCompatActivity {
+
+    private Constants constants;
 
     private GridView gridView;
     private ImageButton backButton;
@@ -51,6 +56,8 @@ public class History extends AppCompatActivity {
         gridView = findViewById(R.id.history_grid);
         backButton = findViewById(R.id.history_back);
 
+        constants = new Constants();
+
         initListeners();
 
         new GetItems().execute();
@@ -60,6 +67,35 @@ public class History extends AppCompatActivity {
         backButton.setOnClickListener(v -> finish());
     }
 
+    private String readData(Context context) {
+        String dataFILE =
+                constants.getContentDIR() + File.separator + constants.getContentNAME() + ".txt";
+        String returnDATA = "";
+
+        try {
+            InputStream stream = context.openFileInput(dataFILE);
+            if (stream != null) {
+                InputStreamReader reader =
+                        new InputStreamReader(stream);
+                BufferedReader bufferedReader =
+                        new BufferedReader(reader);
+                String receiveString;
+                StringBuilder builder =
+                        new StringBuilder();
+                while ((receiveString = bufferedReader.readLine()) != null) {
+                    builder.append(receiveString);
+                }
+
+                stream.close();
+                returnDATA = builder.toString();
+            }
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
+
+        return returnDATA;
+    }
+
     @SuppressLint("StaticFieldLeak")
     private class GetItems extends AsyncTask<Void, Void, Void> {
         @Override
@@ -67,8 +103,9 @@ public class History extends AppCompatActivity {
             super.onPreExecute();
 
             try {
-                File file = new File(filePath);
-
+                String jsonString = readData(History.this);
+                mainArray = new JSONArray(jsonString);
+                /*File file = new File(filePath);
                 try (FileInputStream stream = new FileInputStream(file)) {
                     String jsonString;
                     FileChannel channel = stream.getChannel();
@@ -79,7 +116,7 @@ public class History extends AppCompatActivity {
                     mainArray = new JSONArray(jsonString);
                 } catch (Exception error) {
                     error.printStackTrace();
-                }
+                }*/
             } catch (Exception error) {
                 error.printStackTrace();
             }

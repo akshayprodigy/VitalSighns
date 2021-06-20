@@ -12,6 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.augmentingtechs.vitalsigns.healthwatcher.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,8 +25,11 @@ import java.util.Date;
 public class O2Result extends AppCompatActivity {
 
     private String user, Date;
+    private Constants constants;
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     Date today = Calendar.getInstance().getTime();
+    JSONObject O2Data;
+    JSONArray O2Array;
     int O2;
     private static PowerManager.WakeLock wakeLock = null;
     @Override
@@ -33,11 +41,26 @@ public class O2Result extends AppCompatActivity {
         TextView RO2 = this.findViewById(R.id.O2R);
         ImageButton SO2 = this.findViewById(R.id.SendO2);
 
+        constants = new Constants();
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             O2 = bundle.getInt("O2R");
             user = bundle.getString("Usr");
             RO2.setText(String.valueOf(O2));
+
+            O2Data = new JSONObject();
+            O2Array = new JSONArray();
+            try {
+                O2Data.put("time", Date);
+                O2Data.put("type", "Blood Pressure");
+                O2Data.put("result", O2);
+
+                O2Array.put(O2Data);
+                writeData(O2Array.toString(), this);
+            } catch (Exception error) {
+                error.printStackTrace();
+            }
         }
 
         SO2.setOnClickListener(v -> {
@@ -78,5 +101,18 @@ public class O2Result extends AppCompatActivity {
 //        finish();
         super.onBackPressed();
 
+    }
+
+    private void writeData(String data, Context context) {
+        try {
+            String dataFILE =
+                    constants.getContentDIR() + File.separator + constants.getContentNAME() + ".txt";
+            OutputStreamWriter writer =
+                    new OutputStreamWriter(context.openFileOutput(dataFILE, Context.MODE_PRIVATE));
+            writer.write(data);
+            writer.close();
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
     }
 }

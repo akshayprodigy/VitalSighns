@@ -31,6 +31,8 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.io.File;
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 public class Primary extends AppCompatActivity implements OnUserEarnedRewardListener {
@@ -263,7 +265,7 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if (report.areAllPermissionsGranted()) {
-                            // Doing Nothing
+                            initData();
                         }
                     }
 
@@ -318,6 +320,26 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
                         // used here to specify individual options settings.
                         .build())
                 .build();
+    }
+
+    private  void initData() {
+        File dataDIR = new File(constants.getContentDIR());
+        if (!dataDIR.exists()) {
+            dataDIR.mkdirs();
+        }
+
+        writeData("", this);
+    }
+
+    private void writeData(String data, Context context) {
+        try {
+            String dataFILE = constants.getContentDIR() + File.separator + constants.getContentNAME() + ".txt";
+            OutputStreamWriter writer = new OutputStreamWriter(context.openFileOutput(dataFILE, Context.MODE_PRIVATE));
+            writer.write(data);
+            writer.close();
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
     }
 
     private void loadRewardAd() {

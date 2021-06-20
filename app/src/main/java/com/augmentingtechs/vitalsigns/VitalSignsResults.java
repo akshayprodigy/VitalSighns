@@ -13,6 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.augmentingtechs.vitalsigns.healthwatcher.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,8 +26,11 @@ import java.util.Date;
 public class VitalSignsResults extends AppCompatActivity {
 
     private String user, Date;
+    private Constants constants;
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     Date today = Calendar.getInstance().getTime();
+    JSONObject BPData, HRData, O2Data, RRData;
+    JSONArray MAINArray;
     int VBP1, VBP2, VRR, VHR, VO2;
     private static PowerManager.WakeLock wakeLock = null;
     @Override
@@ -37,6 +45,8 @@ public class VitalSignsResults extends AppCompatActivity {
         TextView VSO2 = this.findViewById(R.id.O2V);
         ImageButton All = this.findViewById(R.id.SendAll);
 
+        constants = new Constants();
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             VRR = bundle.getInt("breath");
@@ -49,6 +59,38 @@ public class VitalSignsResults extends AppCompatActivity {
             VSHR.setText(String.valueOf(VHR));
             VSBPS.setText(VBP1 + " / " + VBP2);
             VSO2.setText(String.valueOf(VO2));
+
+            BPData = new JSONObject();
+            HRData = new JSONObject();
+            O2Data = new JSONObject();
+            RRData = new JSONObject();
+            MAINArray = new JSONArray();
+
+            try {
+                BPData.put("time", Date);
+                BPData.put("type", "Blood Pressure");
+                BPData.put("result", VBP1 + "/" + VBP2);
+
+                HRData.put("time", Date);
+                HRData.put("type", "Blood Pressure");
+                HRData.put("result", VHR);
+
+                O2Data.put("time", Date);
+                O2Data.put("type", "Blood Pressure");
+                O2Data.put("result", VO2);
+
+                RRData.put("time", Date);
+                RRData.put("type", "Blood Pressure");
+                RRData.put("result", VRR);
+
+                MAINArray.put(BPData);
+                MAINArray.put(HRData);
+                MAINArray.put(O2Data);
+                MAINArray.put(RRData);
+                writeData(MAINArray.toString(), this);
+            } catch (Exception error) {
+                error.printStackTrace();
+            }
         }
 
         All.setOnClickListener(v -> {
@@ -86,5 +128,18 @@ public class VitalSignsResults extends AppCompatActivity {
 //        //i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //        startActivity(i);
         finish();
+    }
+
+    private void writeData(String data, Context context) {
+        try {
+            String dataFILE =
+                    constants.getContentDIR() + File.separator + constants.getContentNAME() + ".txt";
+            OutputStreamWriter writer =
+                    new OutputStreamWriter(context.openFileOutput(dataFILE, Context.MODE_PRIVATE));
+            writer.write(data);
+            writer.close();
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
     }
 }
