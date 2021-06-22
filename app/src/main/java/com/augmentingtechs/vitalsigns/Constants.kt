@@ -10,5 +10,5 @@ class Constants {
     val rewardCounter = 5
 
     val contentDIR = Environment.getExternalStorageDirectory().toString() + File.separator + ".VitalSigns"
-    val contentNAME = "vs_data"
+    val contentNAME = "vs_config.txt"
 }

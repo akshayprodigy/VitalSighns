@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_gradient">
 
     <ImageButton
@@ -21,10 +21,72 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/history_back"
+        android:layout_above="@+id/history_bottom_holder"
         android:layout_centerInParent="true"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:numColumns="1"
         android:horizontalSpacing="0dp"
-        android:verticalSpacing="10dp" />
+        android:verticalSpacing="10dp"
+        android:visibility="gone"/>
+    <RelativeLayout
+        android:id="@+id/history_no_documents"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/history_anim"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="0dp"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            app:lottie_autoPlay="true"
+            app:lottie_enableMergePathsForKitKatAndAbove="true"
+            app:lottie_fileName="no_documents.json"
+            app:lottie_loop="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/history_anim"
+            android:layout_marginTop="25dp"
+            android:text="No documents found."
+            android:textColor="@color/grey_dark"
+            android:textSize="21sp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/history_bottom_holder"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/Test"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_border_test"
+            android:text="Test"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_border_history"
+            android:text="History"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
 
 </RelativeLayout>

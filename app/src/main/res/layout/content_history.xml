@@ -13,9 +13,9 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:text="Blood Pressure"
+        android:textColor="@color/black"
         android:textSize="21sp"
-        android:textStyle="bold"
-        android:fontFamily="cursive"
+        android:textStyle="normal"
         tools:ignore="HardcodedText" />
     <TextView
         android:id="@+id/history_content_time"
@@ -25,9 +25,9 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:text="12/12/12 15:55:45"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="normal"
-        android:fontFamily="cursive"
         tools:ignore="HardcodedText" />
     <TextView
         android:id="@+id/history_content_result"
@@ -38,9 +38,9 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
         android:text="85 BP"
+        android:textColor="@color/black"
         android:textSize="21sp"
-        android:textStyle="bold"
-        android:fontFamily="cursive"
+        android:textStyle="normal"
         tools:ignore="HardcodedText" />
 
     <View

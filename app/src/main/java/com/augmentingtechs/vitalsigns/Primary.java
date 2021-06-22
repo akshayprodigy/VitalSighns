@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.ImageButton;
+import android.util.Log;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,7 +33,13 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
@@ -56,7 +64,9 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_primary);
+        setContentView(R.layout.activity_primary_new);
+
+        constants = new Constants();
 
         prefs = getSharedPreferences("vital-prefs", Context.MODE_PRIVATE);
         askPermission();
@@ -66,14 +76,13 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             loadRewardAd();
         });
 
-        ImageButton HeartRate = this.findViewById(R.id.HR);
-        ImageButton BloodPressure = this.findViewById(R.id.BP);
-        ImageButton Ox2 = this.findViewById(R.id.O2);
-        ImageButton RRate = this.findViewById(R.id.RR);
-        ImageButton VitalSigns = this.findViewById(R.id.VS);
-        ImageButton Abt = this.findViewById(R.id.About);
-
-        constants = new Constants();
+        RelativeLayout HeartRate = this.findViewById(R.id.HR);
+        RelativeLayout BloodPressure = this.findViewById(R.id.BP);
+        RelativeLayout Ox2 = this.findViewById(R.id.O2);
+        RelativeLayout RRate = this.findViewById(R.id.RR);
+        RelativeLayout VitalSigns = this.findViewById(R.id.VS);
+        TextView history = this.findViewById(R.id.History);
+        //ImageButton Abt = this.findViewById(R.id.About);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -81,11 +90,11 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             //The key argument here must match that used in the other activity
         }
 
-        Abt.setOnClickListener(v -> {
+        /*Abt.setOnClickListener(v -> {
             Intent i = new Intent(v.getContext(), AboutApp.class);
             startActivity(i);
             //finish();
-        });
+        });*/
 
 
         //Every Test Button sends the username + the test number, to go to the wanted test after the instructions activity
@@ -99,10 +108,8 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             } else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
                 singleLoader.loadAd(new AdRequest.Builder().build());
             } else {
-
                 boolean showTutorial = prefs.getBoolean("showTutorial", true);
                 if(showTutorial){
-                    setTutorialShown();
                     p = 1;
                     Intent i = new Intent(v.getContext(), StartVitalSigns.class);
                     i.putExtra("Usr", user);
@@ -135,7 +142,6 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             } else {
                 boolean showTutorial = prefs.getBoolean("showTutorial", true);
                 if(showTutorial){
-                    setTutorialShown();
                     p = 2;
                     Intent i = new Intent(v.getContext(), StartVitalSigns.class);
                     i.putExtra("Usr", user);
@@ -167,7 +173,6 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             } else {
                 boolean showTutorial = prefs.getBoolean("showTutorial", true);
                 if(showTutorial){
-                    setTutorialShown();
                     p = 3;
                     Intent i = new Intent(v.getContext(), StartVitalSigns.class);
                     i.putExtra("Usr", user);
@@ -199,7 +204,6 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             } else {
                 boolean showTutorial = prefs.getBoolean("showTutorial", true);
                 if(showTutorial){
-                    setTutorialShown();
                     p = 4;
                     Intent i = new Intent(v.getContext(), StartVitalSigns.class);
                     i.putExtra("Usr", user);
@@ -232,7 +236,6 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
 
                 boolean showTutorial = prefs.getBoolean("showTutorial", true);
                 if(showTutorial){
-                    setTutorialShown();
                     p = 5;
                     Intent i = new Intent(v.getContext(), StartVitalSigns.class);
                     i.putExtra("Usr", user);
@@ -252,6 +255,12 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
                 //finish();
             }
         });
+
+        history.setOnClickListener(v -> {
+            Intent i = new Intent(v.getContext(), History.class);
+            i.putExtra("Usr", user);
+            startActivity(i);
+        });
     }
 
     private void askPermission() {
@@ -265,7 +274,7 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if (report.areAllPermissionsGranted()) {
-                            initData();
+                            // Doing Nothing
                         }
                     }
 
@@ -281,12 +290,6 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
     private void setRewardPrefs(int counter) {
         editor = prefs.edit();
         editor.putInt("rewardCounter", counter);
-        editor.apply();
-    }
-
-    void setTutorialShown(){
-        editor = prefs.edit();
-        editor.putBoolean("showTutorial",false);
         editor.apply();
     }
 
@@ -320,26 +323,6 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
                         // used here to specify individual options settings.
                         .build())
                 .build();
-    }
-
-    private  void initData() {
-        File dataDIR = new File(constants.getContentDIR());
-        if (!dataDIR.exists()) {
-            dataDIR.mkdirs();
-        }
-
-        writeData("", this);
-    }
-
-    private void writeData(String data, Context context) {
-        try {
-            String dataFILE = constants.getContentDIR() + File.separator + constants.getContentNAME() + ".txt";
-            OutputStreamWriter writer = new OutputStreamWriter(context.openFileOutput(dataFILE, Context.MODE_PRIVATE));
-            writer.write(data);
-            writer.close();
-        } catch (Exception error) {
-            error.printStackTrace();
-        }
     }
 
     private void loadRewardAd() {

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +15,10 @@ import com.augmentingtechs.vitalsigns.healthwatcher.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,11 +38,11 @@ public class RespirationResult extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_respiration_result);
+        setContentView(R.layout.activity_respiration_result_new);
 
         Date = df.format(today);
         TextView RRR = this.findViewById(R.id.RRR);
-        ImageButton SRR = this.findViewById(R.id.SendRR);
+        Button SRR = this.findViewById(R.id.SendRR);
 
         constants = new Constants();
 
@@ -50,8 +53,14 @@ public class RespirationResult extends AppCompatActivity {
             RRR.setText(String.valueOf(RR));
 
             RRData = new JSONObject();
-            RRArray = new JSONArray();
+            String data = readData(this);
             try {
+                if (!data.equals("")) {
+                    RRArray = new JSONArray(data);
+                } else {
+                    RRArray = new JSONArray();
+                }
+
                 RRData.put("time", Date);
                 RRData.put("type", "Blood Pressure");
                 RRData.put("result", RR);
@@ -103,14 +112,39 @@ public class RespirationResult extends AppCompatActivity {
 
     private void writeData(String data, Context context) {
         try {
-            String dataFILE =
-                    constants.getContentDIR() + File.separator + constants.getContentNAME() + ".txt";
             OutputStreamWriter writer =
-                    new OutputStreamWriter(context.openFileOutput(dataFILE, Context.MODE_PRIVATE));
+                    new OutputStreamWriter(context.openFileOutput(constants.getContentNAME(), Context.MODE_PRIVATE));
             writer.write(data);
             writer.close();
         } catch (Exception error) {
             error.printStackTrace();
         }
+    }
+
+    private String readData(Context context) {
+        String returnDATA = "";
+
+        try {
+            InputStream stream = context.openFileInput(constants.getContentNAME());
+            if (stream != null) {
+                InputStreamReader reader =
+                        new InputStreamReader(stream);
+                BufferedReader bufferedReader =
+                        new BufferedReader(reader);
+                String receiveString;
+                StringBuilder builder =
+                        new StringBuilder();
+                while ((receiveString = bufferedReader.readLine()) != null) {
+                    builder.append(receiveString);
+                }
+
+                stream.close();
+                returnDATA = builder.toString();
+            }
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
+
+        return returnDATA;
     }
 }

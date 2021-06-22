@@ -1,8 +1,10 @@
 package com.augmentingtechs.vitalsigns;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,10 +14,15 @@ public class StartVitalSigns extends AppCompatActivity {
     private String user;
     private int p;
 
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_vital_signs);
+        setContentView(R.layout.activity_start_vital_signs_new);
+
+        prefs = getSharedPreferences("vital-prefs", Context.MODE_PRIVATE);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -23,9 +30,13 @@ public class StartVitalSigns extends AppCompatActivity {
             p = extras.getInt("Page");
         }
 
-        ImageButton VS = this.findViewById(R.id.StartVS);
+        Button VS = this.findViewById(R.id.StartVS);
 
         VS.setOnClickListener(v -> {
+
+            editor = prefs.edit();
+            editor.putBoolean("showTutorial", false);
+            editor.apply();
 
             //switch is to decide which activity must be opened
             switch (p) {

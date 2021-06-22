@@ -2,6 +2,7 @@ package com.augmentingtechs.vitalsigns;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,14 +37,14 @@ public class History extends AppCompatActivity {
 
     private GridView gridView;
     private ImageButton backButton;
+    private TextView test;
+    private RelativeLayout noDocuments;
 
     private ArrayList<String> historyType;
     private ArrayList<String> historyTime;
     private ArrayList<String> historyResult;
 
     private JSONArray mainArray;
-
-    private String filePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,25 +57,42 @@ public class History extends AppCompatActivity {
 
         gridView = findViewById(R.id.history_grid);
         backButton = findViewById(R.id.history_back);
+        test = findViewById(R.id.Test);
+        noDocuments = findViewById(R.id.history_no_documents);
 
         constants = new Constants();
 
         initListeners();
 
-        new GetItems().execute();
+        try {
+            String jsonString = readData(History.this);
+            if (!jsonString.equals("")) {
+                mainArray = new JSONArray(jsonString);
+                new GetItems().execute();
+            } else {
+                gridView.setVisibility(View.GONE);
+                noDocuments.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
     }
 
     private void initListeners() {
         backButton.setOnClickListener(v -> finish());
+
+        test.setOnClickListener(v -> {
+            Intent i = new Intent(v.getContext(), Primary.class);
+            startActivity(i);
+            finish();
+        });
     }
 
     private String readData(Context context) {
-        String dataFILE =
-                constants.getContentDIR() + File.separator + constants.getContentNAME() + ".txt";
         String returnDATA = "";
 
         try {
-            InputStream stream = context.openFileInput(dataFILE);
+            InputStream stream = context.openFileInput(constants.getContentNAME());
             if (stream != null) {
                 InputStreamReader reader =
                         new InputStreamReader(stream);
@@ -101,25 +120,6 @@ public class History extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            try {
-                String jsonString = readData(History.this);
-                mainArray = new JSONArray(jsonString);
-                /*File file = new File(filePath);
-                try (FileInputStream stream = new FileInputStream(file)) {
-                    String jsonString;
-                    FileChannel channel = stream.getChannel();
-                    MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
-
-                    jsonString = Charset.defaultCharset().decode(buffer).toString();
-
-                    mainArray = new JSONArray(jsonString);
-                } catch (Exception error) {
-                    error.printStackTrace();
-                }*/
-            } catch (Exception error) {
-                error.printStackTrace();
-            }
         }
 
         @Override
@@ -146,6 +146,9 @@ public class History extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             gridView.setAdapter(new JSONAdapter(History.this));
+
+            gridView.setVisibility(View.VISIBLE);
+            noDocuments.setVisibility(View.GONE);
         }
     }
 

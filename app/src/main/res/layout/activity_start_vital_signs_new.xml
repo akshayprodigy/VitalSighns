@@ -10,7 +10,7 @@
         android:id="@+id/tutorial_image"
         android:layout_width="wrap_content"
         android:layout_height="160dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/finger"
         tools:ignore="ContentDescription" />
 
@@ -28,13 +28,13 @@
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/SendBP"
+        android:id="@+id/StartVS"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_centerInParent="true"
         android:layout_below="@+id/textView"
         android:layout_marginTop="150dp"
-        android:text="Share Via"
+        android:text="Got it."
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="21sp"
