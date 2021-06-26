@@ -30,6 +30,7 @@
                 android:textSize="18sp"
                 tools:ignore="HardcodedText" />
             <TextView
+                android:id="@+id/HRV"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -83,6 +84,7 @@
                 android:textSize="18sp"
                 tools:ignore="HardcodedText" />
             <TextView
+                android:id="@+id/O2V"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -146,6 +148,7 @@
                 android:textSize="18sp"
                 tools:ignore="HardcodedText" />
             <TextView
+                android:id="@+id/BP2V"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -199,6 +202,7 @@
                 android:textSize="18sp"
                 tools:ignore="HardcodedText" />
             <TextView
+                android:id="@+id/RRV"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -239,7 +243,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/SendBP"
+        android:id="@+id/SendAll"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_centerInParent="true"

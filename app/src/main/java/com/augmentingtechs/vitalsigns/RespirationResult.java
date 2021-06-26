@@ -62,7 +62,7 @@ public class RespirationResult extends AppCompatActivity {
                 }
 
                 RRData.put("time", Date);
-                RRData.put("type", "Blood Pressure");
+                RRData.put("type", "Respiration Rate");
                 RRData.put("result", RR);
 
                 RRArray.put(RRData);

@@ -7,7 +7,7 @@
     android:background="@drawable/bg_gradient">
 
     <LinearLayout
-        android:id="@+id/BPR_Result_Holder"
+        android:id="@+id/HRR_Result_Holder"
         android:layout_width="200dp"
         android:layout_height="300dp"
         android:layout_centerInParent="true"
@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_border_top">
             <Button
-                android:id="@+id/BPR_Range"
+                android:id="@+id/HRR_Range"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/BPR_Range"
+                android:layout_above="@+id/HRR_Range"
                 android:layout_marginBottom="5dp"
                 android:text="Normal Range"
                 android:textColor="@color/blue"
@@ -69,7 +69,7 @@
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_centerInParent="true"
-        android:layout_below="@+id/BPR_Result_Holder"
+        android:layout_below="@+id/HRR_Result_Holder"
         android:layout_marginTop="150dp"
         android:text="Share Via"
         android:textAllCaps="false"

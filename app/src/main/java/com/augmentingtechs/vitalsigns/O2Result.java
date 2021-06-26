@@ -63,7 +63,7 @@ public class O2Result extends AppCompatActivity {
                 }
 
                 O2Data.put("time", Date);
-                O2Data.put("type", "Blood Pressure");
+                O2Data.put("type", "Oxygen Saturation");
                 O2Data.put("result", O2);
 
                 O2Array.put(O2Data);

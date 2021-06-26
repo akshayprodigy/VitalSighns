@@ -65,7 +65,7 @@ public class HeartRateResult extends AppCompatActivity {
                 }
 
                 HRData.put("time", Date);
-                HRData.put("type", "Blood Pressure");
+                HRData.put("type", "Heart Rate");
                 HRData.put("result", HR);
 
                 HRArray.put(HRData);
