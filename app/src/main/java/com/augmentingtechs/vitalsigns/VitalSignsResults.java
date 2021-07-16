@@ -2,16 +2,25 @@ package com.augmentingtechs.vitalsigns;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.augmentingtechs.vitalsigns.healthwatcher.R;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,6 +41,10 @@ public class VitalSignsResults extends AppCompatActivity {
     private Constants constants;
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     Date today = Calendar.getInstance().getTime();
+
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
+
     JSONObject BPData, HRData, O2Data, RRData;
     JSONArray MAINArray;
     int VBP1, VBP2, VRR, VHR, VO2;
@@ -50,6 +63,15 @@ public class VitalSignsResults extends AppCompatActivity {
         Button All = this.findViewById(R.id.SendAll);
 
         constants = new Constants();
+
+        prefs = getSharedPreferences("vital-prefs", Context.MODE_PRIVATE);
+
+
+        if(Utility.rewardCounter < 0)
+            Utility.rewardCounter =0;
+        editor = prefs.edit();
+        editor.putInt("rewardCounter", Utility.rewardCounter);
+        editor.apply();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -118,6 +140,10 @@ public class VitalSignsResults extends AppCompatActivity {
 // WakeLock Initialization : Forces the phone to stay On
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "Vital sign: DoNotDimScreen");
+        Utility.allTestCounter--;
+        if(Utility.allTestCounter == 0){
+            ShowInterstitialAds();
+        }
     }
     @Override
     protected void onResume() {
@@ -130,15 +156,16 @@ public class VitalSignsResults extends AppCompatActivity {
         super.onPause();
         wakeLock.release();
     }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-//        Intent i = new Intent(VitalSignsResults.this, Primary.class);
-//        i.putExtra("Usr", user);
-//        //i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(i);
-        finish();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+////        finish();
+////        Intent i = new Intent(VitalSignsResults.this, Primary.class);
+////        i.putExtra("Usr", user);
+////        //i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+////        startActivity(i);
+//
+//    }
 
     private void writeData(String data, Context context) {
         try {
@@ -176,5 +203,58 @@ public class VitalSignsResults extends AppCompatActivity {
         }
 
         return returnDATA;
+    }
+
+    private InterstitialAd mInterstitialAd;
+    public void ShowInterstitialAds(){
+        Utility.allTestCounter++;
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this,Utility.InterstitialAdUnit, adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(Utility.TAG, "onAdLoaded");
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                Log.d("TAG", "The ad was dismissed.");
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when fullscreen content failed to show.
+                                Log.d("TAG", "The ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                mInterstitialAd = null;
+                                Log.d("TAG", "The ad was shown.");
+                                Utility.allTestCounter = Utility.alltestRefill;
+                            }
+                        });
+
+                        if (mInterstitialAd != null) {
+                            mInterstitialAd.show(VitalSignsResults.this);
+                        } else {
+                            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                        }
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i(Utility.TAG, loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
     }
 }

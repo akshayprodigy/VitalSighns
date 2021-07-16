@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Vital Signs</string>
     <string name="msg">Please enable all permission</string>
-
+    <string name="view_reward_ads">Out of Tokens</string>
+    <string name="view_reward_ads_details">Please view the ad to continue</string>
     <string-array name="Gender">
         <item>Male</item>
         <item>Female</item>

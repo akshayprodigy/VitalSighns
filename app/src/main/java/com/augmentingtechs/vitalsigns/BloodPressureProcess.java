@@ -263,6 +263,8 @@ public class BloodPressureProcess extends Activity {
             }
 
             if ((SP != 0) && (DP != 0)) {
+                Utility.individualTestCounter--;
+                Utility.rewardCounter--;
                 Intent i = new Intent(BloodPressureProcess.this, BloodPressureResult.class);
                 i.putExtra("SP", SP);
                 i.putExtra("DP", DP);

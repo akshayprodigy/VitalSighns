@@ -246,6 +246,8 @@ public class O2Process extends Activity {
             }
 
             if (o2 != 0) {
+                Utility.individualTestCounter--;
+                Utility.rewardCounter--;
                 Intent i = new Intent(O2Process.this, O2Result.class);
                 i.putExtra("O2R", o2);
                 i.putExtra("Usr", user);

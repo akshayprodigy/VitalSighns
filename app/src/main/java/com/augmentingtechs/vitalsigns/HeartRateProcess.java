@@ -228,6 +228,8 @@ public class HeartRateProcess extends Activity {
             }
 
             if (Beats != 0) { //if beasts were reasonable stop the loop and send HR with the username to results activity and finish this activity
+                Utility.individualTestCounter--;
+                Utility.rewardCounter--;
                 Intent i = new Intent(HeartRateProcess.this, HeartRateResult.class);
                 i.putExtra("bpm", Beats);
                 i.putExtra("Usr", user);

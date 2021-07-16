@@ -1,11 +1,17 @@
 package com.augmentingtechs.vitalsigns;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +31,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
 import com.karumi.dexter.Dexter;
@@ -47,20 +55,20 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
 
     private String user;
     private int p;
+    Dialog dialog;
 
-    private int singleAdCounter = 0;
-    private int allAdCounter = 0;
-    private int rewardCounter = 0;
 
     private AdLoader singleLoader;
 
     private RewardedInterstitialAd rewardedAd;
 
+    private RewardedAd mRewardedAd;
+
     private Constants constants;
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
-
+    TextView rewardCounter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,11 +78,9 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
 
         prefs = getSharedPreferences("vital-prefs", Context.MODE_PRIVATE);
         askPermission();
+        Utility.rewardCounter = prefs.getInt("rewardCounter", Utility.defaultRewardValue);
 
-        MobileAds.initialize(this, initializationStatus -> {
-            initAds();
-            loadRewardAd();
-        });
+
 
         RelativeLayout HeartRate = this.findViewById(R.id.HR);
         RelativeLayout BloodPressure = this.findViewById(R.id.BP);
@@ -82,6 +88,10 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
         RelativeLayout RRate = this.findViewById(R.id.RR);
         RelativeLayout VitalSigns = this.findViewById(R.id.VS);
         TextView history = this.findViewById(R.id.History);
+
+        rewardCounter = this.findViewById(R.id.textlifecount);
+//        Log.e("vital", "on create rewardCounter :"+Utility.rewardCounter);
+
         //ImageButton Abt = this.findViewById(R.id.About);
 
         Bundle extras = getIntent().getExtras();
@@ -99,15 +109,17 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
 
         //Every Test Button sends the username + the test number, to go to the wanted test after the instructions activity
         HeartRate.setOnClickListener(v -> {
-            rewardCounter = prefs.getInt("rewardCounter", 5);
-            singleAdCounter++;
-            rewardCounter--;
-            setRewardPrefs(rewardCounter);
-            if (rewardCounter == 0) {
-                rewardedAd.show(Primary.this, Primary.this);
-            } else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
-                singleLoader.loadAd(new AdRequest.Builder().build());
-            } else {
+
+//            singleAdCounter++;
+//            rewardCounter--;
+//            setRewardPrefs(rewardCounter);
+            if (Utility.rewardCounter == 0) {
+                showCustomDialog();
+            }
+//            else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
+//                singleLoader.loadAd(new AdRequest.Builder().build());
+//            }
+            else {
                 boolean showTutorial = prefs.getBoolean("showTutorial", true);
                 if(showTutorial){
                     p = 1;
@@ -131,15 +143,18 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
         });
 
         BloodPressure.setOnClickListener(v -> {
-            rewardCounter = prefs.getInt("rewardCounter", 5);
-            singleAdCounter++;
-            rewardCounter--;
-            setRewardPrefs(rewardCounter);
-            if (rewardCounter == 0) {
-                rewardedAd.show(Primary.this, Primary.this);
-            } else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
-                singleLoader.loadAd(new AdRequest.Builder().build());
-            } else {
+//            rewardCounter = prefs.getInt("rewardCounter", 5);
+//            singleAdCounter++;
+//            rewardCounter--;
+//            setRewardPrefs(rewardCounter);
+            if (Utility.rewardCounter == 0) {
+//                rewardedAd.show(Primary.this, Primary.this);
+                showCustomDialog();
+            }
+//            else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
+//                singleLoader.loadAd(new AdRequest.Builder().build());
+//            }
+            else {
                 boolean showTutorial = prefs.getBoolean("showTutorial", true);
                 if(showTutorial){
                     p = 2;
@@ -162,15 +177,18 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
         });
 
         RRate.setOnClickListener(v -> {
-            rewardCounter = prefs.getInt("rewardCounter", 5);
-            singleAdCounter++;
-            rewardCounter--;
-            setRewardPrefs(rewardCounter);
-            if (rewardCounter == 0) {
-                rewardedAd.show(Primary.this, Primary.this);
-            } else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
-                singleLoader.loadAd(new AdRequest.Builder().build());
-            } else {
+//            rewardCounter = prefs.getInt("rewardCounter", 5);
+//            singleAdCounter++;
+//            rewardCounter--;
+//            setRewardPrefs(rewardCounter);
+            if (Utility.rewardCounter == 0) {
+//                rewardedAd.show(Primary.this, Primary.this);
+                showCustomDialog();
+            }
+//            else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
+//                singleLoader.loadAd(new AdRequest.Builder().build());
+//            }
+            else {
                 boolean showTutorial = prefs.getBoolean("showTutorial", true);
                 if(showTutorial){
                     p = 3;
@@ -193,15 +211,18 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
         });
 
         Ox2.setOnClickListener(v -> {
-            rewardCounter = prefs.getInt("rewardCounter", 5);
-            singleAdCounter++;
-            rewardCounter--;
-            setRewardPrefs(rewardCounter);
-            if (rewardCounter == 0) {
-                rewardedAd.show(Primary.this, Primary.this);
-            } else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
-                singleLoader.loadAd(new AdRequest.Builder().build());
-            } else {
+//            rewardCounter = prefs.getInt("rewardCounter", 5);
+//            singleAdCounter++;
+//            rewardCounter--;
+//            setRewardPrefs(rewardCounter);
+            if (Utility.rewardCounter == 0) {
+//                rewardedAd.show(Primary.this, Primary.this);
+                showCustomDialog();
+            }
+//            else if (singleAdCounter % constants.getSingleAdInterval() == 0) {
+//                singleLoader.loadAd(new AdRequest.Builder().build());
+//            }
+            else {
                 boolean showTutorial = prefs.getBoolean("showTutorial", true);
                 if(showTutorial){
                     p = 4;
@@ -224,15 +245,18 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
         });
 
         VitalSigns.setOnClickListener(v -> {
-            rewardCounter = prefs.getInt("rewardCounter", 5);
-            allAdCounter++;
-            rewardCounter--;
-            setRewardPrefs(rewardCounter);
-            if (rewardCounter == 0) {
-                rewardedAd.show(Primary.this, Primary.this);
-            } else if (allAdCounter % constants.getAllAdInterval() == 0) {
-                singleLoader.loadAd(new AdRequest.Builder().build());
-            } else {
+//            rewardCounter = prefs.getInt("rewardCounter", 5);
+//            allAdCounter++;
+//            rewardCounter--;
+//            setRewardPrefs(rewardCounter);
+            if (Utility.rewardCounter == 0) {
+//                rewardedAd.show(Primary.this, Primary.this);
+                showCustomDialog();
+            }
+//            else if (allAdCounter % constants.getAllAdInterval() == 0) {
+//                singleLoader.loadAd(new AdRequest.Builder().build());
+//            }
+            else {
 
                 boolean showTutorial = prefs.getBoolean("showTutorial", true);
                 if(showTutorial){
@@ -262,6 +286,8 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
             startActivity(i);
         });
     }
+
+
 
     private void askPermission() {
         Dexter.withContext(this)
@@ -294,6 +320,19 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        MobileAds.initialize(this, initializationStatus -> {
+//            initAds();
+            if (Utility.rewardCounter == 0)
+//                loadRewardAd();
+                loadRewardVideoAds();
+        });
+
+        rewardCounter.setText( String.valueOf( Utility.rewardCounter));
+    }
+
+    @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setTitle("Really Exit?")
@@ -323,6 +362,69 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
                         // used here to specify individual options settings.
                         .build())
                 .build();
+    }
+
+
+    private void loadRewardVideoAds(){
+        RewardedAd.load(this, Utility.RewardVideoAdUnit,
+                new AdRequest.Builder().build(), new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error.
+                        Log.d("reward video", loadAdError.getMessage());
+                        mRewardedAd = null;
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                        mRewardedAd = rewardedAd;
+                        mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when ad is shown.
+                                Log.d("reward video", "Ad was shown.");
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when ad fails to show.
+                                Log.d("reward video", "Ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when ad is dismissed.
+                                // Set the ad reference to null so you don't show the ad a second time.
+                                Log.d("reward video", "Ad was dismissed.");
+                                mRewardedAd = null;
+                            }
+                        });
+                        Log.d("reward video", "Ad was loaded.");
+                    }
+                });
+
+
+    }
+
+
+    private void showRewardVideoAds(){
+        if (mRewardedAd != null) {
+            Activity activityContext = Primary.this;
+            mRewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
+                @Override
+                public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                    // Handle the reward.
+                    Log.d("reward video", "The user earned the reward.");
+                    int rewardAmount = rewardItem.getAmount();
+                    String rewardType = rewardItem.getType();
+                    Utility.rewardCounter = Utility.rewardedValue;
+                    setRewardPrefs(Utility.rewardCounter);
+
+                }
+            });
+        } else {
+            Log.d("reward video", "The rewarded ad wasn't ready yet.");
+        }
     }
 
     private void loadRewardAd() {
@@ -362,6 +464,33 @@ public class Primary extends AppCompatActivity implements OnUserEarnedRewardList
     public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
         setRewardPrefs(5);
         loadRewardAd();
+    }
+
+    public void showCustomDialog(){
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.ad_dialog_layout);
+        dialog.show();
+
+
+        ImageButton bt_yes = (ImageButton)dialog.findViewById(R.id.imageButton);
+        Button bt_no = (Button)dialog.findViewById(R.id.dialogClose);
+
+        bt_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                loadRewardAd();
+                dialog.dismiss();
+//                rewardedAd.show(Primary.this, Primary.this);
+                showRewardVideoAds();
+            }
+        });
+        bt_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
 }

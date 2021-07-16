@@ -20,10 +20,41 @@
         app:lottie_fileName="heartbeat-medical.json"
         app:lottie_loop="true" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="0dp"
+        android:id="@+id/counterLayout"
+        android:layout_below="@+id/primary_anim"
+        android:orientation="horizontal">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/primary_anim_life"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_enableMergePathsForKitKatAndAbove="true"
+            app:lottie_fileName="13176-heart.json"
+            app:lottie_loop="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textlifecount"
+            android:text="10"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/primary_anim"
+        android:layout_below="@+id/counterLayout"
         android:layout_above="@+id/primary_bottom_holder"
         android:scrollbars="vertical">
         <RelativeLayout
@@ -64,7 +95,7 @@
                                 android:layout_centerInParent="true"
                                 android:layout_alignParentTop="true"
                                 android:layout_marginTop="5dp"
-                                android:src="@drawable/heartrate"
+                                android:src="@drawable/hearttrans"
                                 tools:ignore="ContentDescription" />
                             <TextView
                                 android:layout_width="wrap_content"

@@ -2,16 +2,25 @@ package com.augmentingtechs.vitalsigns;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.augmentingtechs.vitalsigns.healthwatcher.R;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,6 +44,10 @@ public class O2Result extends AppCompatActivity {
     JSONObject O2Data;
     JSONArray O2Array;
     int O2;
+
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
+
     private static PowerManager.WakeLock wakeLock = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +59,15 @@ public class O2Result extends AppCompatActivity {
         Button SO2 = this.findViewById(R.id.SendO2);
 
         constants = new Constants();
+
+        prefs = getSharedPreferences("vital-prefs", Context.MODE_PRIVATE);
+
+
+        if(Utility.rewardCounter < 0)
+            Utility.rewardCounter =0;
+        editor = prefs.edit();
+        editor.putInt("rewardCounter", Utility.rewardCounter);
+        editor.apply();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -88,6 +110,11 @@ public class O2Result extends AppCompatActivity {
         // WakeLock Initialization : Forces the phone to stay On
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "Vital sign: DoNotDimScreen");
+
+        Utility.individualTestCounter--;
+        if(Utility.individualTestCounter ==0 ){
+            ShowInterstitialAds();
+        }
     }
 
     @Override
@@ -150,4 +177,60 @@ public class O2Result extends AppCompatActivity {
 
         return returnDATA;
     }
+
+
+    private InterstitialAd mInterstitialAd;
+
+    public void ShowInterstitialAds(){
+        Utility.individualTestCounter++;
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this,Utility.InterstitialAdUnit, adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(Utility.TAG, "onAdLoaded");
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                Log.d("TAG", "The ad was dismissed.");
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when fullscreen content failed to show.
+                                Log.d("TAG", "The ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                mInterstitialAd = null;
+                                Log.d("TAG", "The ad was shown.");
+                                Utility.individualTestCounter = Utility.individualrefill;
+                            }
+                        });
+
+                        if (mInterstitialAd != null) {
+                            mInterstitialAd.show(O2Result.this);
+                        } else {
+                            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                        }
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i(Utility.TAG, loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
+    }
+
 }

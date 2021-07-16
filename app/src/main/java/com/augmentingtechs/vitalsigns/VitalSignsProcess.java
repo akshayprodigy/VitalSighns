@@ -328,6 +328,8 @@ public class VitalSignsProcess extends AppCompatActivity {
 
             //if all those variable contains a valid values then swap them to results activity and finish the processing activity
             if ((Beats != 0) && (SP != 0) && (DP != 0) && (o2 != 0) && (Breath != 0)) {
+                Utility.individualTestCounter--;
+                Utility.rewardCounter--;
                 Intent i = new Intent(VitalSignsProcess.this, VitalSignsResults.class);
                 i.putExtra("O2R", o2);
                 i.putExtra("breath", Breath);

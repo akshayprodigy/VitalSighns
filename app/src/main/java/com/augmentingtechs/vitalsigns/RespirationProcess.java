@@ -231,6 +231,8 @@ public class RespirationProcess extends Activity {
             }
 
             if (Breath != 0) {
+                Utility.individualTestCounter--;
+                Utility.rewardCounter--;
                 Intent i = new Intent(RespirationProcess.this, RespirationResult.class);
                 i.putExtra("bpm", Breath);
                 i.putExtra("Usr", user);
